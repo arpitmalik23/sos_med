@@ -23,12 +23,20 @@ pair<int, vector<pii>> dijkstra_pathfinder(const vector<vector<int>>& cost, pii 
         if (make_pair(x, y) == end) break;
 
         for (int d = 0; d < 4; ++d) {
+
             int nx = x + dx[d], ny = y + dy[d];
+
             if (nx >= 0 && ny >= 0 && nx < n && ny < m && cost[nx][ny] != -1) {
+
                 int new_cost = curr_cost + cost[nx][ny];
+
                 if (new_cost < dist[nx][ny]) {
+
                     dist[nx][ny] = new_cost;
+
+
                     pq.push({new_cost, nx, ny});
+
                     parent[{nx, ny}] = {x, y};
                 }
             }
@@ -36,11 +44,18 @@ pair<int, vector<pii>> dijkstra_pathfinder(const vector<vector<int>>& cost, pii 
     }
 
     if (dist[end.first][end.second] == INT_MAX) return {-1, {}};
+
     vector<pii> path;
+
     for (pii curr = end; curr != start; curr = parent[curr])
+
+
         path.push_back(curr);
+
     path.push_back(start);
+
     reverse(path.begin(), path.end());
+    
     return {dist[end.first][end.second], path};
 }
 
